@@ -122,7 +122,7 @@ ADD res/home/ ${HOME}/
 # Add startup
 ADD res/entrypoint.sh ${START_DIR}/entrypoint.sh
 ADD res/xfce.sh ${START_DIR}/xfce.sh
-RUN apt-get install -y gnome-screenshot
+RUN sudo apt-get install -y gnome-screenshot
 # Add python script with resources
 ADD zoomrec.py ${HOME}/
 ADD res/img ${HOME}/img
