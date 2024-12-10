@@ -296,19 +296,23 @@ def join_meeting_url():
 
     # Insert name
     pyautogui.hotkey('ctrl', 'a')
-    pyautogui.write(DISPLAY_NAME, interval=0.1)
+    pyautogui.write("AiGenda Bot", interval=0.1)
 
     # Configure
     pyautogui.press('tab')
-    pyautogui.press('space')
+    time.sleep(0.1)
     pyautogui.press('tab')
+    time.sleep(0.1)
     pyautogui.press('space')
+    time.sleep(0.1)
     pyautogui.press('tab')
-    pyautogui.press('space')
+    time.sleep(0.1)
+    pyautogui.press('enter')
 
-    time.sleep(2)
+    time.sleep(3)
+    # Waiting room
+    pyautogui.screenshot("waitroom.png")
 
-    return check_error()
     
 
 def check_error():
@@ -467,19 +471,10 @@ def join(meet_id, meet_pw, duration, description):
         logging.info("Bad zoom")
         exit()
 
-    pyautogui.screenshot("/home/zoomrec/recordings/screenshots/join.png")
-    img_name = 'join.png'
-    # Wait for zoom is started
-    while locate(os.path.join(IMG_PATH, img_name), confidence=0.9) is None:
-        logging.info("Zoom not ready yet!")
-        time.sleep(1)
-
     logging.info("Zoom started!")
     start_date = datetime.now()
-
-    time.sleep(2)
     joined = join_meeting_url()
-
+    exit()
     if not joined:
         send_telegram_message("Failed to join meeting {}!".format(description))
         logging.error("Failed to join meeting!")
