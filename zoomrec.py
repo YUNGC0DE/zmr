@@ -304,6 +304,7 @@ def join_meeting_url():
 
 def check_error():
     # Sometimes invalid id error is displayed
+    logging.info(os.path.join(IMG_PATH, 'invalid_meeting_id.png'))
     if pyautogui.locateCenterOnScreen(os.path.join(
             IMG_PATH, 'invalid_meeting_id.png'), confidence=0.9) is not None:
         logging.error("Maybe a invalid meeting id was inserted..")
