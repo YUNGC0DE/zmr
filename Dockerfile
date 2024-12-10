@@ -124,8 +124,8 @@ RUN apt-get install --reinstall libxcb-xinerama0 \
 RUN apt-get install libxcb-xinerama0 \
     apt-get install libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render0 libxcb-render-util0 libxcb-shape0 libxcb-sync1 libxcb-xfixes0
 
-export QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
-export QT_DEBUG_PLUGINS=1
+RUN export QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
+RUN export QT_DEBUG_PLUGINS=1
 
 RUN pip uninstall opencv-python-headless
 RUN pip install opencv-python-headless
