@@ -882,14 +882,8 @@ def join_ongoing_meeting():
 
                 recent_duration = (end_date - curr_date).total_seconds()
 
-                if start_time < end_time:
-                    if start_time <= curr_time <= end_time and str(row["record"]) == 'true':
-                            logging.info(
-                                "Join meeting that is currently running..")
-                            join(meet_id=row["id"], meet_pw=row["password"],
-                                 duration=recent_duration, description=row["description"])
-                else:  # crosses midnight
-                    if curr_time >= start_time or curr_time <= end_time and str(row["record"]) == 'true':
+                if True:
+                    if True and str(row["record"]) == 'true':
                             logging.info(
                                 "Join meeting that is currently running..")
                             join(meet_id=row["id"], meet_pw=row["password"],
