@@ -467,7 +467,7 @@ def join(meet_id, meet_pw, duration, description):
         logging.info("Bad zoom")
         exit()
 
-    pyautogui.screenshot("join")
+    pyautogui.screenshot("/home/zoomrec/recordings/screenshots/join.png")
     img_name = 'join.png'
     # Wait for zoom is started
     while locate(os.path.join(IMG_PATH, img_name), confidence=0.9) is None:
