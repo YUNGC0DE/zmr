@@ -115,14 +115,10 @@ RUN apt-get update && \
 RUN adduser zoomrec pulse-access
 RUN apt update && apt install -y gnome-screenshot
 
-RUN apt-get install --reinstall libxcb-xinerama0 \
-    apt-get install libxcb-xinerama0-dev \
-    apt-get install libxkbcommon-x11-0 \
-    apt-get install libgl1-mesa-glx
+RUN apt-get install --reinstall libxcb-xinerama0
+RUN apt-get install libxcb-xinerama0-dev libxkbcommon-x11-0 libgl1-mesa-glx
 
-
-RUN apt-get install libxcb-xinerama0 \
-    apt-get install libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render0 libxcb-render-util0 libxcb-shape0 libxcb-sync1 libxcb-xfixes0
+RUN apt-get install libxcb-xinerama0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render0 libxcb-render-util0 libxcb-shape0 libxcb-sync1 libxcb-xfixes0
 
 RUN export QT_QPA_PLATFORM_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/qt5/plugins
 RUN export QT_DEBUG_PLUGINS=1
