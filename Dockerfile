@@ -113,7 +113,7 @@ RUN apt-get update && \
 
 # Allow access to pulseaudio
 RUN adduser zoomrec pulse-access
-
+RUN apt-get install -y gnome-screenshot
 USER zoomrec
 
 # Add home resources
@@ -122,7 +122,7 @@ ADD res/home/ ${HOME}/
 # Add startup
 ADD res/entrypoint.sh ${START_DIR}/entrypoint.sh
 ADD res/xfce.sh ${START_DIR}/xfce.sh
-RUN sudo apt-get install -y gnome-screenshot
+
 # Add python script with resources
 ADD zoomrec.py ${HOME}/
 ADD res/img ${HOME}/img
