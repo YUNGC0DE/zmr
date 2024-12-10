@@ -453,10 +453,7 @@ def join(meet_id, meet_pw, duration, description):
     logging.info("Starting zoom with url")
     zoom = subprocess.Popen(f'zoom --url="{meet_id}"', stdout=subprocess.PIPE,
                             shell=True, preexec_fn=os.setsid)
-    img_name = 'join.png'
-    time.sleep(5)
-    pyautogui.screenshot("invalid_meeting_id.png")
-    exit()
+
     # Wait while zoom process is there
     list_of_process_ids = find_process_id_by_name('zoom')
     while len(list_of_process_ids) <= 0:
@@ -464,6 +461,14 @@ def join(meet_id, meet_pw, duration, description):
         list_of_process_ids = find_process_id_by_name('zoom')
         time.sleep(1)
 
+    time.sleep(2)
+    coords = locate(os.path.join(IMG_PATH, "invalid_meeting_id.png"), 0.9)
+    if coords is None:
+        logging.info("Bad zoom")
+        exit()
+
+    pyautogui.screenshot("join")
+    img_name = 'join.png'
     # Wait for zoom is started
     while locate(os.path.join(IMG_PATH, img_name), confidence=0.9) is None:
         logging.info("Zoom not ready yet!")
