@@ -113,7 +113,7 @@ RUN apt-get update && \
 
 # Allow access to pulseaudio
 RUN adduser zoomrec pulse-access
-RUN apt install -y gnome-screenshot
+RUN apt update && apt install -y gnome-screenshot
 USER zoomrec
 
 # Add home resources
