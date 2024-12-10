@@ -467,7 +467,7 @@ def join(meet_id, meet_pw, duration, description):
 
     time.sleep(2)
     coords = locate(os.path.join(IMG_PATH, "invalid_meeting_id.png"), 0.9)
-    if coords is None:
+    if coords is not None:
         logging.info("Bad zoom")
         exit()
 
