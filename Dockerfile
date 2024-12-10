@@ -80,6 +80,9 @@ RUN apt-get update && \
         libxcomposite1 \
         libxslt1.1 \
         libsqlite3-0 \
+        libxcb-cursor0 \
+        libxcb-icccm4 \
+        libatomic1 \
         libxcb-keysyms1 \
         libxcb-xtest0 && \
 # Install Zoom
