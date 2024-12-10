@@ -4,7 +4,6 @@ import os
 import psutil
 import pyautogui
 import random
-import schedule
 import signal
 import subprocess
 import threading
@@ -149,12 +148,12 @@ class HideViewOptionsThread:
                         logging.error("Could not exit poll results window!")
                         if DEBUG:
                             pyautogui.screenshot(os.path.join(DEBUG_PATH, time.strftime(
-                                TIME_FORMAT) + "-" + description) + "_close_poll_results_error.png")
+                                TIME_FORMAT) + "-" + "") + "_close_poll_results_error.png")
                 except TypeError:
                     logging.error("Could not find poll results window anymore!")
                     if DEBUG:
                         pyautogui.screenshot(os.path.join(DEBUG_PATH, time.strftime(
-                            TIME_FORMAT) + "-" + description) + "_find_poll_results_error.png")
+                            TIME_FORMAT) + "-" + "") + "_find_poll_results_error.png")
 
             # Check if view options available
             if locate(os.path.join(IMG_PATH, 'view_options.png'), confidence=0.9) is not None:
@@ -455,7 +454,9 @@ def join(meet_id, meet_pw, duration, description):
     zoom = subprocess.Popen(f'zoom --url="{meet_id}"', stdout=subprocess.PIPE,
                             shell=True, preexec_fn=os.setsid)
     img_name = 'join.png'
-    
+    time.sleep(5)
+    pyautogui.screenshot("invalid_meeting_id.png")
+    exit()
     # Wait while zoom process is there
     list_of_process_ids = find_process_id_by_name('zoom')
     while len(list_of_process_ids) <= 0:
@@ -486,11 +487,6 @@ def join(meet_id, meet_pw, duration, description):
 
     # Check if connecting
     check_connecting(zoom.pid, start_date, duration)
-
-    if not join_by_url:
-        pyautogui.write(meet_pw, interval=0.2)
-        pyautogui.press('tab')
-        pyautogui.press('space')
 
     # Joined meeting
     # Check if connecting
@@ -886,26 +882,6 @@ def join_ongoing_meeting():
                                 "Join meeting that is currently running..")
                             join(meet_id=row["id"], meet_pw=row["password"],
                                  duration=recent_duration, description=row["description"])
-
-
-def setup_schedule():
-    with open(CSV_PATH, mode='r') as csv_file:
-        csv_reader = csv.DictReader(csv_file, delimiter=CSV_DELIMITER)
-        line_count = 0
-        for row in csv_reader:
-            if str(row["record"]) == 'true':
-                cmd_string = "schedule.every()." + row["weekday"] \
-                             + ".at(\"" \
-                             + (datetime.strptime(row["time"], '%H:%M') - timedelta(minutes=1)).strftime('%H:%M') \
-                             + "\").do(join, meet_id=\"" + row["id"] \
-                             + "\", meet_pw=\"" + row["password"] \
-                             + "\", duration=" + str(int(row["duration"]) * 60) \
-                             + ", description=\"" + row["description"] + "\")"
-
-                cmd = compile(cmd_string, "<string>", "eval")
-                eval(cmd)
-                line_count += 1
-        logging.info("Added %s meetings to schedule." % line_count)
 
 
 if __name__ == '__main__':
